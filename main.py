@@ -57,3 +57,12 @@ questionCnts = []
 
 plt.imshow(paper, cmap='gray')
 plt.show()
+for c in cnts:
+	(x, y, w, h) = cv2.boundingRect(c)
+	ar = w / float(h)
+	if w >= 20 and h >= 20 and ar >= 0.9 and ar <= 1.1:
+		questionCnts.append(c)
+#trier les contours de la question de haut en bas, puis initialiser le nombre total de réponses correctes
+questionCnts = contours.sort_contours(questionCnts,
+	method="top-to-bottom")[0]
+correct = 0
