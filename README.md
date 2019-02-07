@@ -1,5 +1,4 @@
 Créez et auto-corrigez vos QCM avec Auto Multiple Choice avec opencv et python:
-
 Étape n ° 1: Détectez l'examen dans une image.
 Étape n ° 2: appliquez une transformation de perspective pour extraire la vue de haut en bas de l'examen.
 Étape n ° 3: Extrayez l’ensemble des bulles de l’examen transformé en perspective.
