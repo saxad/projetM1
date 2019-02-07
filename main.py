@@ -99,3 +99,10 @@ for (q, i) in enumerate(np.arange(0, len(questionCnts), 5)):
 	# on dessine contoure au tours de la bonne reponses en rouges
 	# et la reponse fausses en rouges
 	cv2.drawContours(paper, [cnts[k]], -1, color, 3)
+	score = (correct / 5.0) * 20
+print("[INFO] score: {:.2f}/20".format(score))
+cv2.putText(paper, "{:.2f}/20".format(score), (10, 30),
+	cv2.FONT_HERSHEY_SIMPLEX, 0.9, (0, 0, 255), 2)
+cv2.imshow("Originale", image)
+cv2.imshow("Examen", paper)
+cv2.waitKey(0)
