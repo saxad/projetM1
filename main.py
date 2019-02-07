@@ -1,7 +1,9 @@
 import cv2
 import matplotlib.pyplot as plt
+from imutils import contours
 import argparse
 import imutils
+import numpy as np
 from imutils.perspective  import four_point_transform
 
 
@@ -10,6 +12,8 @@ argObj.add_argument("-i", required = True, help="entrer le chemin verre la copie
 
 arg = vars(argObj.parse_args())
 
+
+ANSWER_KEY = {0: 1, 1: 4, 2: 0, 3: 3, 4: 1}
 print(arg)
 
 image = cv2.imread(arg["i"])
@@ -88,7 +92,7 @@ for (q, i) in enumerate(np.arange(0, len(questionCnts), 5)):
 			bubbled = (total, j)
 
 	# on initialise la couleur en rouge pour les réponses fausses
-	color = (0, 0, 255)
+	color = (255, 0, 0)
 	k = ANSWER_KEY[q]
 
 	# puis on compare la bulle avec nos reponses
@@ -99,10 +103,16 @@ for (q, i) in enumerate(np.arange(0, len(questionCnts), 5)):
 	# on dessine contoure au tours de la bonne reponses en rouges
 	# et la reponse fausses en rouges
 	cv2.drawContours(paper, [cnts[k]], -1, color, 3)
-	score = (correct / 5.0) * 20
+score = (correct / 5.0) * 20
 print("[INFO] score: {:.2f}/20".format(score))
 cv2.putText(paper, "{:.2f}/20".format(score), (10, 30),
 	cv2.FONT_HERSHEY_SIMPLEX, 0.9, (0, 0, 255), 2)
+"""
 cv2.imshow("Originale", image)
 cv2.imshow("Examen", paper)
 cv2.waitKey(0)
+"""
+plt.imshow(image, cmap='gray')
+plt.show()
+plt.imshow(paper, cmap='gray')
+plt.show()
