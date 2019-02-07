@@ -66,3 +66,36 @@ for c in cnts:
 questionCnts = contours.sort_contours(questionCnts,
 	method="top-to-bottom")[0]
 correct = 0
+
+
+for (q, i) in enumerate(np.arange(0, len(questionCnts), 5)):
+	#on trie les contours de chaque ligne
+	#puis initier la reponse du candidat
+	cnts = contours.sort_contours(questionCnts[i:i + 5])[0]
+	bubbled = None
+
+	# pour chaque ligne de reponse on récupère la la reponse coché
+	for (j, c) in enumerate(cnts):
+
+		mask = np.zeros(thresh.shape, dtype="uint8")
+		cv2.drawContours(mask, [c], -1, 255, -1)
+
+		#on applique le masque pour récupérer la bulle avec le max de pixel non blanche
+		mask = cv2.bitwise_and(thresh, thresh, mask=mask)
+		total = cv2.countNonZero(mask)
+
+		if bubbled is None or total > bubbled[0]:
+			bubbled = (total, j)
+
+	# on initialise la couleur en rouge pour les réponses fausses
+	color = (0, 0, 255)
+	k = ANSWER_KEY[q]
+
+	# puis on compare la bulle avec nos reponses
+	if k == bubbled[1]:
+		color = (0, 255, 0)
+		correct += 1
+
+	# on dessine contoure au tours de la bonne reponses en rouges
+	# et la reponse fausses en rouges
+	cv2.drawContours(paper, [cnts[k]], -1, color, 3)
