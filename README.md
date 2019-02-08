@@ -22,5 +22,9 @@ Auto-corrigez vos QCM avec Auto Multiple Choice avec opencv et python:
 
 https://www.programcreek.com/python/example/70455/cv2.drawContours  
 https://docs.opencv.org/3.1.0/d4/d73/tutorial_py_contours_begin.html   
-https://www.youtube.com/watch?v=Yybnpil3kh4&list=PLiHa1s-EL3vjr0Z02ihr6Lcu4Q0rnRvjm&index=26
+https://www.youtube.com/watch?v=Yybnpil3kh4&list=PLiHa1s-EL3vjr0Z02ihr6Lcu4Q0rnRvjm&index=26  
+
+## package qui facilite le traitement des contours  
+### imutils  
+https://github.com/jrosebr1/imutils  
 
