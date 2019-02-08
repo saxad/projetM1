@@ -5,10 +5,16 @@ import argparse
 import imutils
 import numpy as np
 from imutils.perspective  import four_point_transform
+import os
 
-
+print(os.name)
 argObj = argparse.ArgumentParser()
-argObj.add_argument("-i", required = True, help="entrer le chemin verre la copie à corriger")
+
+#argObj.add_argument("-i", required = True, help="entrer le chemin verre la copie à corriger")
+argObj.add_argument("-i",  help="entrer le chemin verre la copie à corriger")
+argObj.add_argument("-c",  help="entrer le chemin verre la copie à corriger")
+
+
 
 arg = vars(argObj.parse_args())
 
@@ -16,7 +22,24 @@ arg = vars(argObj.parse_args())
 ANSWER_KEY = {0: 1, 1: 4, 2: 0, 3: 3, 4: 1}
 print(arg)
 
-image = cv2.imread(arg["i"])
+if arg['i'] != None:
+    image = cv2.imread(arg["i"])
+else:
+    cap = cv2.VideoCapture(0)
+    if cap.isOpened():
+        ret, frame = cap.read()
+        print(ret)
+        print(frame)
+    else:
+        ret = False
+    image = cv2.cvtColor(frame,cv2.COLOR_BGR2RGB)
+
+    plt.imshow(image)
+    plt.title('cam pic')
+    plt.xticks([])
+    plt.yticks([])
+    plt.show()
+
 
 gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
@@ -59,8 +82,6 @@ cnts = imutils.grab_contours(cnts)
 questionCnts = []
 
 
-plt.imshow(paper, cmap='gray')
-plt.show()
 for c in cnts:
 	(x, y, w, h) = cv2.boundingRect(c)
 	ar = w / float(h)
@@ -107,12 +128,21 @@ score = (correct / 5.0) * 20
 print("[INFO] score: {:.2f}/20".format(score))
 cv2.putText(paper, "{:.2f}/20".format(score), (10, 30),
 	cv2.FONT_HERSHEY_SIMPLEX, 0.9, (0, 0, 255), 2)
-"""
-cv2.imshow("Originale", image)
-cv2.imshow("Examen", paper)
-cv2.waitKey(0)
+
+print
+if os.name == 'posix':
+    plt.imshow(paper, cmap='gray')
+    plt.show()
+else:
+    cv2.imshow("Originale", image)
+    cv2.imshow("Examen", paper)
+    cv2.waitKey(0)
+
 """
 plt.imshow(image, cmap='gray')
 plt.show()
+
+
 plt.imshow(paper, cmap='gray')
 plt.show()
+"""
