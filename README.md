@@ -18,6 +18,15 @@ Auto-corrigez vos QCM avec Auto Multiple Choice avec opencv et python:
 > Avec la commande :  
 > python -c photo  
 
+### Démo :  
+python main.py -i test1.png  
+![alt text](https://github.com/saxad/projetM1/blob/master/qcm1.png)  
+python main.py -c photo  
+![alt text](https://github.com/saxad/projetM1/blob/master/qcm2.png)
+![alt text](https://github.com/saxad/projetM1/blob/master/qcm2-bis.png)  
+
+
+
 ## Liens qui aident à comprendres opencv
 
 https://www.programcreek.com/python/example/70455/cv2.drawContours  
